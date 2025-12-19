@@ -39,7 +39,7 @@ jobs:
   push-to-registry:
     runs-on: ubuntu-latest
     needs: semantic-release
-    if: needs.semantic-release.outputs.new-release-published == 'true'
+    # if: needs.semantic-release.outputs.new-release-published == 'true'
     steps:
       - name: Checkout rpeo
         uses: actions/checkout@v6
