@@ -49,6 +49,8 @@ jobs:
         run: |
           VERSION=$(gh api repos/${{ github.repository }}/releases/latest --jq '.tag_name')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Login dockerhub
         uses: docker/login-action@v3
