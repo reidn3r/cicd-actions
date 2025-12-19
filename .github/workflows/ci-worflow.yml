@@ -1,0 +1,24 @@
+name: "continuous-integration"
+
+on: 
+  pull_request:
+
+jobs:
+  continuous-integration:
+    runs-on: ubuntu-latest
+    steps:
+      #Checkout da branch target
+      - uses: actions/checkout@v6
+
+      #Configura ambiente node.js
+      - name: Node.js Setup
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+  
+      - name: Install, test and build
+        run: | 
+          npm install
+          npm run test
+          npm run build
+
