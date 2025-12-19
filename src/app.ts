@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import Fastify from 'fastify'
 import { HealthCheckController } from './routes/health.controller';
 
