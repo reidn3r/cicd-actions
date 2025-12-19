@@ -35,6 +35,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
+      - name: Debug version
+        run: |
+          echo "version=${{ needs.semantic-release.outputs.new-release-version }}"
+          echo "published=${{ needs.semantic-release.outputs.new-release-published }}"
+
 
   push-to-registry:
     runs-on: ubuntu-latest
