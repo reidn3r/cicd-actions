@@ -1,17 +1,16 @@
 import { inject } from "inversify";
 import { injectable } from "inversify";
 import { TYPES } from "../di/tokens";
-import { CnpjValidationService } from "./cnpj/cnpj-validation.service";
-import { CpfValidationService } from "./cpf/cpf.validation.service";
+import { Ivalidation } from "../interfaces/validation.interface";
 
 @injectable()
 export class ValidationServiceFacade {
   constructor(
     @inject(TYPES.CnpjValidationService)
-    private cnpjService: CnpjValidationService,
+    private cnpjService: Ivalidation,
 
     @inject(TYPES.CpfValidationService)
-    private cpfService: CpfValidationService
+    private cpfService: Ivalidation
   ) {}
 
   validateCpf(cpf: string): boolean {
