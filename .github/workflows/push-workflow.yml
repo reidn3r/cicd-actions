@@ -35,20 +35,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
-      - name: Debug version
-        run: |
-          echo "version=${{ needs.semantic-release.outputs.new-release-version }}"
-          echo "published=${{ needs.semantic-release.outputs.new-release-published }}"
-
 
   push-to-registry:
     runs-on: ubuntu-latest
     environment: Dockerhub
     needs: semantic-release
-    # if: needs.semantic-release.outputs.new-release-published == 'true'
     steps:
       - name: Checkout rpeo
         uses: actions/checkout@v6
+      
+      - name: Get latest release version
+        id: version
+        run: |
+          VERSION=$(gh api repos/${{ github.repository }}/releases/latest --jq '.tag_name')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Login dockerhub
         uses: docker/login-action@v3
@@ -62,4 +62,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nodejs:${{ needs.semantic-release.outputs.new-release-version }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nodejs:${{ steps.version.outputs.version }}
