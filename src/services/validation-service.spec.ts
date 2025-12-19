@@ -9,7 +9,7 @@ describe("ValidationServiceFacade", () => {
 
     const result = facade.validateCpf("123");
     
-    expect(result).toBe(false); //teste nao passa propositalmente
+    expect(result).toBe(true);
     expect(cpfMock.validate).toHaveBeenCalledWith("123");
   });
 
